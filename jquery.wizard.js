@@ -122,13 +122,15 @@
                     } else {
                         breadCrumbList = $(breadCrumbList).insertBefore(wizard.container);
                     }
+                    
+                    breadCrumbList.addClass(wizard.settings.breadCrumbListClass);
+
                 } else {
 
                     breadCrumbList = $('.'+wizard.settings.breadCrumbListClass);
                 }
 
-                breadCrumbList.children().first().addClass(defaults.breadCrumbActiveClass);
-                breadCrumbList.addClass(defaults.breadCrumbListClass);
+                breadCrumbList.children().eq(wizard.root.index()).addClass(wizard.settings.breadCrumbActiveClass);
 
             }
 
@@ -215,7 +217,7 @@
 
             if ( active.index() === index || index < 0 ) return;
 
-            if (direction === 'next' && wizard.settings.validateForm && !active.find(":input[required]").not('.ignore').valid() ) {
+            if (direction === 'next' && wizard.settings.validateForm && !active.find(":input").not('.ignore').valid() ) {
                 return;
             }
 
@@ -234,7 +236,7 @@
                 current.parents().show.apply(current, wizard.settings.prevArgs);
 
                 breadCrumbList.find('.' + wizard.settings.breadCrumbActiveClass).removeClass(wizard.settings.breadCrumbActiveClass);
-                breadCrumbList.find('> *').children().eq(index).addClass(wizard.settings.breadCrumbActiveClass);
+                breadCrumbList.children().eq(index).addClass(wizard.settings.breadCrumbActiveClass);
                 
             }
 
